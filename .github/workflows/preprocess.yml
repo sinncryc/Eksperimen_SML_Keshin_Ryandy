@@ -1,0 +1,53 @@
+name: Automated Preprocessing
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  run-preprocessing:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12.7
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12.7"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas numpy
+
+      - name: Check project files
+        run: |
+          echo "Current directory:"
+          pwd
+          echo "Repository files:"
+          ls -R
+
+      - name: Run automated preprocessing
+        run: |
+          python preprocessing/automate_Keshin_Ryandy.py
+
+      - name: Validate preprocessing output
+        run: |
+          test -f preprocessing/titanic_preprocessing/train_preprocessed.csv
+          test -f preprocessing/titanic_preprocessing/test_preprocessed.csv
+          echo "Preprocessing output files found."
+
+      - name: Upload preprocessing artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: titanic-preprocessing-output
+          path: preprocessing/titanic_preprocessing/
