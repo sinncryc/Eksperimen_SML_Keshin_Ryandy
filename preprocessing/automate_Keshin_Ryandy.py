@@ -1,32 +1,9 @@
-"""
-Automated preprocessing script for Titanic dataset.
-Author: Keshin Ryandy
-
-Struktur yang disarankan:
-Eksperimen_SML_Keshin_Ryandy/
-├── titanic_raw/
-│   ├── train.csv
-│   └── test.csv
-└── preprocessing/
-    ├── Eksperimen_MSML_Keshin_Ryandy.ipynb
-    ├── automate_Keshin_Ryandy.py
-    └── titanic_preprocessing/
-        ├── train_preprocessed.csv
-        └── test_preprocessed.csv
-
-Cara menjalankan:
-python preprocessing/automate_Keshin_Ryandy.py
-"""
 
 from pathlib import Path
 import logging
 import numpy as np
 import pandas as pd
 
-
-# =========================
-# CONFIG
-# =========================
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_DIR = SCRIPT_DIR.parent
 
@@ -41,10 +18,6 @@ logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
-
-# =========================
-# FUNCTIONS
-# =========================
 def load_data(train_path: Path, test_path: Path):
     """Load raw train and test dataset."""
     if not train_path.exists():
